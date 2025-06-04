@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.18</version>
+	</parent>
+
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
+
+	<groupId>com.soapexample</groupId>
+	<artifactId>book-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>book-service</name>
+	<description>SOAP Book Service with Spring Boot</description>
+
+
+
+	<dependencies>
+		<!-- Spring Web & Web Services -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+		<!-- DevTools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JAXB for Java 11+ -->
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>2.3.3</version> <!-- Or a newer version if needed -->
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>2.3.3</version> <!-- Match the version of the API -->
+		</dependency>
+
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<!-- Spring Boot Starter for JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.32</version>
+		</dependency>
+
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+		<plugin>
+			<groupId>org.jvnet.jaxb2.maven2</groupId>
+			<artifactId>maven-jaxb2-plugin</artifactId>
+			<version>0.14.0</version>
+			<executions>
+				<execution>
+					<id>generate-xsd</id>
+					<goals>
+						<goal>generate</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<schemas>
+					<schema>
+						<fileset>
+							<directory>${project.basedir}/src/main/resources/wsdl</directory>
+							<includes>
+								<include>book.xsd</include>
+							</includes>
+						</fileset>
+					</schema>
+				</schemas>
+				<bindingDirectory>${project.basedir}/src/main/resources/wsdl</bindingDirectory>
+				<bindingIncludes>
+					<include>bindings.xjb</include>
+				</bindingIncludes>
+				<generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
+			</configuration>
+		</plugin>
+		</plugins>
+
+	</build>
+
+
+</project>
