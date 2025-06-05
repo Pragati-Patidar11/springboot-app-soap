@@ -54,4 +54,8 @@ private double price;
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public void setPrice(String price){
+        this.price= Double.parseDouble(price);
+    }
 }
